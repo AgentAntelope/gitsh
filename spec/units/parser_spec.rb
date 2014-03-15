@@ -59,6 +59,16 @@ describe Gitsh::Parser do
       )
     end
 
+    it 'parses a command with string arguments' do
+      expect(parser).to parse(%q(commit '' "")).as(
+        git_cmd: 'commit',
+        args: [
+          { arg: parser_literals('') },
+          { arg: parser_literals('') }
+        ]
+      )
+    end
+
     it 'parses a command with unquoted arguments' do
       expect(parser).to parse(':set author').as(
         internal_cmd: 'set',
